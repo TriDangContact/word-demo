@@ -56,17 +56,22 @@ Each endpoint expects an API Key in the header called `key`. For the purpose of 
 ## Demo
 
 ### Adding valid word "bug" to storage
-
+![Screenshot1](/src/main/resources/screenshots/Screenshot1.png?raw=true "Screenshot1")
 ### Adding valid word "lady" to storage
-
+![Screenshot2](/src/main/resources/screenshots/Screenshot1.png?raw=true "Screenshot2")
 ### Adding invalid word "awdawd" to storage
-
+![Screenshot3](/src/main/resources/screenshots/Screenshot1.png?raw=true "Screenshot3")
 ### Listing all words currently in storage
-
+![Screenshot4](/src/main/resources/screenshots/Screenshot1.png?raw=true "Screenshot4")
 ### Finding subwords of "ladybug"
-
+![Screenshot5](/src/main/resources/screenshots/Screenshot1.png?raw=true "Screenshot5")
 ### Finding subwords of "buggy"
-
+![Screenshot6](/src/main/resources/screenshots/Screenshot1.png?raw=true "Screenshot6")
 ### Deleting word "lady" from storage
-
+![Screenshot7](/src/main/resources/screenshots/Screenshot1.png?raw=true "Screenshot7")
 ### Listing all words currently in storage
+![Screenshot8](/src/main/resources/screenshots/Screenshot1.png?raw=true "Screenshot8")
+### Deleting word currently not in storage
+![Screenshot9](/src/main/resources/screenshots/Screenshot1.png?raw=true "Screenshot9")
+### Adding word already in storage
+![Screenshot10](/src/main/resources/screenshots/Screenshot1.png?raw=true "Screenshot10")
