@@ -1,0 +1,73 @@
+package com.tridang.assignment.security;/*
+ * @author Tri Dang
+ */
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.annotation.Order;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.web.access.ExceptionTranslationFilter;
+import org.springframework.security.web.authentication.Http403ForbiddenEntryPoint;
+
+@Configuration
+@EnableWebSecurity
+@PropertySource("classpath:application.properties")
+@Order(1)
+public class AuthTokenSecurityConfig extends WebSecurityConfigurerAdapter {
+
+    @Value("${auth.apiKeyHeaderName}")
+    private String apiKeyHeaderName;
+
+    @Value("${auth.apiKeyHeaderValue}")
+    private String apiKeyHeaderValue;
+
+    @Override
+    protected void configure(HttpSecurity httpSecurity) throws Exception
+    {
+        PreAuthTokenHeaderFilter filter = new PreAuthTokenHeaderFilter(apiKeyHeaderName);
+
+        filter.setAuthenticationManager(new AuthenticationManager()
+        {
+            @Override
+            public Authentication authenticate(Authentication authentication)
+                    throws AuthenticationException
+            {
+                // api key value retrieved from request
+                String principal = (String) authentication.getPrincipal();
+
+                if (!apiKeyHeaderValue.equals(principal))
+                {
+                    throw new BadCredentialsException("The API key was not found "
+                            + "or not the expected value.");
+                }
+                authentication.setAuthenticated(true);
+                return authentication;
+            }
+        });
+
+        // only authenticate for this path
+        httpSecurity.
+                antMatcher("/demo/**")
+                .csrf()
+                .disable()
+                .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
+                .addFilter(filter)
+                .addFilterBefore(new ExceptionTranslationFilter(
+                                new Http403ForbiddenEntryPoint()),
+                        filter.getClass()
+                )
+                .authorizeRequests()
+                .anyRequest()
+                .authenticated();
+    }
+}
