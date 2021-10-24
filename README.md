@@ -3,18 +3,20 @@
 A simple Spring Boot application that provides RESTful endpoints to find subwords from a given word.
 
 ## Assumptions
-
+- For a word to be stored, it must be both a valid input and a valid word in the English dictionary.
 - We can either use a locally defined dictionary or an external dictionary to define and verify that the input is a valid word in the English dictionary.
   - For this demo, we are using the [Merriam Dictionary API](https://www.dictionaryapi.com/products/api-collegiate-dictionary).
   - If the Merriam Dictionary API returns a short definition for the word, we will assume that this word is valid.
   - If the Merriam Dictionary API returns nothing, we will assume that this word is not a valid word.
   - If the Merriam Dictionary API returns an array of strings, we will assume that this word is not a valid word and return the array to the caller as suggestions for valid words.
-- Valid inputs must contain only English alphabet characters [A-Za-z].
-- Valid input can only be a sequence of alphabet characters, even if they do not make up a valid word in an English dictionary (e.g. "abc" is a valid input, but B.C. is not since it contains period character).
-- Valid inputs are those that contain a single word and are not delimited by a deliminator (e.g. "lady bug" is not a single word).
-- Valid inputs are case-insensitive, and all words will be stored as lowercase.
-- Valid inputs must contain less than 10 characters.
-- Valid inputs must not be null or be an empty string.
+- These are the assumptions for what constitutes as a valid input for the `/add-word` request:
+  - Valid input does not guarantee that it will be a valid word.
+  - Valid inputs must contain only English alphabet characters [A-Za-z].
+  - Valid input can only be a sequence of alphabet characters, even if they do not make up a valid word in an English dictionary (e.g. "abc" is a valid input, but "B.C." is not since it contains period character).
+  - Valid inputs are those that contain a single word and are not delimited by a deliminator (e.g. "lady bug" is not a single word).
+  - Valid inputs are case-insensitive, and all words will be stored as lowercase.
+  - Valid inputs must contain less than 10 characters.
+  - Valid inputs must not be null or be an empty string.
 
 ## Compile
 
