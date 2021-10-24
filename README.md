@@ -1,17 +1,6 @@
 # Overview
 
-## Compile
-
-- Run command in terminal:
-  - `mvn clean install`
-- This will clean the project, install any dependencies, and create a `/target` directory with a `.jar` file of the program.
-
-## Start Server
-
-- Navigate to the /target directory and run command in terminal:
-  - `java -jar <name of .jar file>`
-- Or navigate to the root project directory and run command in terminal:
-  - `./mvnw spring-boot:run`
+A simple Spring Boot application that provides RESTful endpoints to find subwords from a given word.
 
 ## Assumptions
 
@@ -27,10 +16,25 @@
 - Valid inputs must contain less than 10 characters.
 - Valid inputs must not be null or be an empty string.
 
+## Compile
+
+- Run command in terminal:
+  - `mvn clean install`
+- This will clean the project, install any dependencies, and create a `/target` directory with a `.jar` file of the program.
+
+## Start Server
+
+- Navigate to the /target directory and run command in terminal:
+  - `java -jar <name of .jar file>`
+- Or navigate to the root project directory and run command in terminal:
+  - `./mvnw spring-boot:run`
+
 ## Endpoints
 
 Each endpoint expects an API Key in the header called `key`. For the purpose of this demo, the value of the key will a simple value in `application.properties` under `auth.apiKeyHeaderValue`, rather than dynamically generated.
 
+- GET: demo/
+  - Returns a simple welcome message.
 - POST: demo/add-word/{word}
   - Returns a message indicating whether the word was added to storage or not.
   - If the input was valid, but is not a word according to Merriam Dictionary, returns a list of suggested words based on response from Merriam Dictionary API.
@@ -50,3 +54,19 @@ Each endpoint expects an API Key in the header called `key`. For the purpose of 
 - A different endpoint can be created to add a list of words all at once, rather than add individual words
 
 ## Demo
+
+### Adding valid word "bug" to storage
+
+### Adding valid word "lady" to storage
+
+### Adding invalid word "awdawd" to storage
+
+### Listing all words currently in storage
+
+### Finding subwords of "ladybug"
+
+### Finding subwords of "buggy"
+
+### Deleting word "lady" from storage
+
+### Listing all words currently in storage
